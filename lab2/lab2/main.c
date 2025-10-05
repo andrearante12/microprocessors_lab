@@ -14,31 +14,6 @@ void serial_init(void){
 	// Enable Tx and Rx, disable interrupts
 	UCSRB = 0b00011000;
 }
-/*
-void serial_init_1(void){
-	// Asynchronous mode, no parity, 1 stop bit, 8 data bits
-	UCSRC = 0b10000110;
-	// Normal speed, disable multi-proc
-	UCSRA = 0b00000000;
-	// Baud rate 2400bps, assuming 1MHz clock
-	UBRRL = 0x19;
-	UBRRH = 0x00;
-	// Enable Tx and Rx, disable interrupts
-	UCSRB = 0b00011000;
-}
-
-void serial_init_2(void){
-	// Asynchronous mode, even parity, 2 stop bit, 1 start bit, 8 data bits
-	UCSRC = 0b10101110;
-	// Normal speed, disable multi-proc
-	UCSRA = 0b00000000;
-	// Baud rate 4800bps, assuming 4MHz clock
-	UBRRL = 0x33;
-	UBRRH = 0x00;
-	// Enable Tx and Rx, disable interrupts
-	UCSRB = 0b00011000;
-}
-*/
 
 void serial_send(unsigned char data){
 	// Wait until UDRE flag = 1
@@ -156,4 +131,5 @@ int main(void) {
 		
 		
 	}
+
 }
