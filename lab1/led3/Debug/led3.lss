@@ -1,0 +1,304 @@
+
+led3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000128  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000017c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000017c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001ac  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000028  00000000  00000000  000001ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000520  00000000  00000000  00000214  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000049c  00000000  00000000  00000734  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000373  00000000  00000000  00000bd0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  00000f44  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000292  00000000  00000000  00000f78  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000019c  00000000  00000000  0000120a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  000013a6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	10 c0       	rjmp	.+32     	; 0x22 <__ctors_end>
+   2:	17 c0       	rjmp	.+46     	; 0x32 <__bad_interrupt>
+   4:	16 c0       	rjmp	.+44     	; 0x32 <__bad_interrupt>
+   6:	15 c0       	rjmp	.+42     	; 0x32 <__bad_interrupt>
+   8:	14 c0       	rjmp	.+40     	; 0x32 <__bad_interrupt>
+   a:	13 c0       	rjmp	.+38     	; 0x32 <__bad_interrupt>
+   c:	12 c0       	rjmp	.+36     	; 0x32 <__bad_interrupt>
+   e:	11 c0       	rjmp	.+34     	; 0x32 <__bad_interrupt>
+  10:	10 c0       	rjmp	.+32     	; 0x32 <__bad_interrupt>
+  12:	0f c0       	rjmp	.+30     	; 0x32 <__bad_interrupt>
+  14:	0e c0       	rjmp	.+28     	; 0x32 <__bad_interrupt>
+  16:	0d c0       	rjmp	.+26     	; 0x32 <__bad_interrupt>
+  18:	0c c0       	rjmp	.+24     	; 0x32 <__bad_interrupt>
+  1a:	0b c0       	rjmp	.+22     	; 0x32 <__bad_interrupt>
+  1c:	0a c0       	rjmp	.+20     	; 0x32 <__bad_interrupt>
+  1e:	09 c0       	rjmp	.+18     	; 0x32 <__bad_interrupt>
+  20:	08 c0       	rjmp	.+16     	; 0x32 <__bad_interrupt>
+
+00000022 <__ctors_end>:
+  22:	11 24       	eor	r1, r1
+  24:	1f be       	out	0x3f, r1	; 63
+  26:	cf e5       	ldi	r28, 0x5F	; 95
+  28:	d2 e0       	ldi	r29, 0x02	; 2
+  2a:	de bf       	out	0x3e, r29	; 62
+  2c:	cd bf       	out	0x3d, r28	; 61
+  2e:	37 d0       	rcall	.+110    	; 0x9e <main>
+  30:	79 c0       	rjmp	.+242    	; 0x124 <_exit>
+
+00000032 <__bad_interrupt>:
+  32:	e6 cf       	rjmp	.-52     	; 0x0 <__vectors>
+
+00000034 <display_7led>:
+
+	return 0; 
+}
+
+void display_7led(unsigned char k) {
+	if (k == '0')      PORTB = 0b11000000; // 0
+  34:	80 33       	cpi	r24, 0x30	; 48
+  36:	19 f4       	brne	.+6      	; 0x3e <__SP_H__>
+  38:	80 ec       	ldi	r24, 0xC0	; 192
+  3a:	88 bb       	out	0x18, r24	; 24
+  3c:	08 95       	ret
+	else if (k == '1') PORTB = 0b11111001; // 1
+  3e:	81 33       	cpi	r24, 0x31	; 49
+  40:	19 f4       	brne	.+6      	; 0x48 <__SREG__+0x9>
+  42:	89 ef       	ldi	r24, 0xF9	; 249
+  44:	88 bb       	out	0x18, r24	; 24
+  46:	08 95       	ret
+	else if (k == '2') PORTB = 0b10100100; // 2
+  48:	82 33       	cpi	r24, 0x32	; 50
+  4a:	19 f4       	brne	.+6      	; 0x52 <__SREG__+0x13>
+  4c:	84 ea       	ldi	r24, 0xA4	; 164
+  4e:	88 bb       	out	0x18, r24	; 24
+  50:	08 95       	ret
+	else if (k == '3') PORTB = 0b10110000; // 3
+  52:	83 33       	cpi	r24, 0x33	; 51
+  54:	19 f4       	brne	.+6      	; 0x5c <__SREG__+0x1d>
+  56:	80 eb       	ldi	r24, 0xB0	; 176
+  58:	88 bb       	out	0x18, r24	; 24
+  5a:	08 95       	ret
+	else if (k == '4') PORTB = 0b10011001; // 4
+  5c:	84 33       	cpi	r24, 0x34	; 52
+  5e:	19 f4       	brne	.+6      	; 0x66 <__SREG__+0x27>
+  60:	89 e9       	ldi	r24, 0x99	; 153
+  62:	88 bb       	out	0x18, r24	; 24
+  64:	08 95       	ret
+	else if (k == '5') PORTB = 0b10010010; // 5
+  66:	85 33       	cpi	r24, 0x35	; 53
+  68:	19 f4       	brne	.+6      	; 0x70 <__SREG__+0x31>
+  6a:	82 e9       	ldi	r24, 0x92	; 146
+  6c:	88 bb       	out	0x18, r24	; 24
+  6e:	08 95       	ret
+	else if (k == '6') PORTB = 0b10000010; // 6
+  70:	86 33       	cpi	r24, 0x36	; 54
+  72:	19 f4       	brne	.+6      	; 0x7a <__SREG__+0x3b>
+  74:	82 e8       	ldi	r24, 0x82	; 130
+  76:	88 bb       	out	0x18, r24	; 24
+  78:	08 95       	ret
+	else if (k == '7') PORTB = 0b11111000; // 7
+  7a:	87 33       	cpi	r24, 0x37	; 55
+  7c:	19 f4       	brne	.+6      	; 0x84 <__SREG__+0x45>
+  7e:	88 ef       	ldi	r24, 0xF8	; 248
+  80:	88 bb       	out	0x18, r24	; 24
+  82:	08 95       	ret
+	else if (k == '8') PORTB = 0b10000000; // 8
+  84:	88 33       	cpi	r24, 0x38	; 56
+  86:	19 f4       	brne	.+6      	; 0x8e <__SREG__+0x4f>
+  88:	80 e8       	ldi	r24, 0x80	; 128
+  8a:	88 bb       	out	0x18, r24	; 24
+  8c:	08 95       	ret
+	else if (k == '9') PORTB = 0b10010000; // 9
+  8e:	89 33       	cpi	r24, 0x39	; 57
+  90:	19 f4       	brne	.+6      	; 0x98 <__SREG__+0x59>
+  92:	80 e9       	ldi	r24, 0x90	; 144
+  94:	88 bb       	out	0x18, r24	; 24
+  96:	08 95       	ret
+	else               PORTB = 0b11111111;
+  98:	8f ef       	ldi	r24, 0xFF	; 255
+  9a:	88 bb       	out	0x18, r24	; 24
+  9c:	08 95       	ret
+
+0000009e <main>:
+/* ---------- prototypes ---------- */
+static unsigned char read_keypad(void);   
+
+int main(void) {
+	
+	DDRA = 0x00; // set PORTA for input
+  9e:	1a ba       	out	0x1a, r1	; 26
+	DDRB = 0xFF; // set PORTB for output
+  a0:	8f ef       	ldi	r24, 0xFF	; 255
+  a2:	87 bb       	out	0x17, r24	; 23
+}
+
+unsigned char read_keypad(void) {
+	unsigned char x;
+
+	DDRA  = 0b11110000;   // columns = outputs, rows = inputs
+  a4:	10 ef       	ldi	r17, 0xF0	; 240
+	PORTA = 0b11111111;   
+  a6:	df ef       	ldi	r29, 0xFF	; 255
+
+	PORTA = 0b10111111;   // column 1 
+  a8:	cf eb       	ldi	r28, 0xBF	; 191
+	x = PINA;
+	if ((x & 0b00001000) == 0) return '1';  
+	if ((x & 0b00000100) == 0) return '4';  
+	if ((x & 0b00000010) == 0) return '7';  
+
+	PORTA = 0b11011111;   // column 2
+  aa:	0f ed       	ldi	r16, 0xDF	; 223
+	if ((x & 0b00001000) == 0) return '2';  
+	if ((x & 0b00000100) == 0) return '5'; 
+	if ((x & 0b00000010) == 0) return '8';  
+	if ((x & 0b00000001) == 0) return '0';  
+
+	PORTA = 0b11101111;   // column 3
+  ac:	0f 2e       	mov	r0, r31
+  ae:	ff ee       	ldi	r31, 0xEF	; 239
+  b0:	ef 2e       	mov	r14, r31
+  b2:	f0 2d       	mov	r31, r0
+	x = PINA;
+	if ((x & 0b00001000) == 0) return '3';  
+	if ((x & 0b00000100) == 0) return '6';  
+	if ((x & 0b00000010) == 0) return '9';  
+
+	return 0; 
+  b4:	f1 2c       	mov	r15, r1
+}
+
+unsigned char read_keypad(void) {
+	unsigned char x;
+
+	DDRA  = 0b11110000;   // columns = outputs, rows = inputs
+  b6:	1a bb       	out	0x1a, r17	; 26
+	PORTA = 0b11111111;   
+  b8:	db bb       	out	0x1b, r29	; 27
+
+	PORTA = 0b10111111;   // column 1 
+  ba:	cb bb       	out	0x1b, r28	; 27
+	asm volatile("nop");
+  bc:	00 00       	nop
+	x = PINA;
+  be:	89 b3       	in	r24, 0x19	; 25
+	if ((x & 0b00001000) == 0) return '1';  
+  c0:	83 ff       	sbrs	r24, 3
+  c2:	1a c0       	rjmp	.+52     	; 0xf8 <main+0x5a>
+	if ((x & 0b00000100) == 0) return '4';  
+  c4:	82 ff       	sbrs	r24, 2
+  c6:	1a c0       	rjmp	.+52     	; 0xfc <main+0x5e>
+	if ((x & 0b00000010) == 0) return '7';  
+  c8:	81 ff       	sbrs	r24, 1
+  ca:	1a c0       	rjmp	.+52     	; 0x100 <main+0x62>
+
+	PORTA = 0b11011111;   // column 2
+  cc:	0b bb       	out	0x1b, r16	; 27
+	asm volatile("nop");
+  ce:	00 00       	nop
+	x = PINA;
+  d0:	89 b3       	in	r24, 0x19	; 25
+	if ((x & 0b00001000) == 0) return '2';  
+  d2:	83 ff       	sbrs	r24, 3
+  d4:	17 c0       	rjmp	.+46     	; 0x104 <main+0x66>
+	if ((x & 0b00000100) == 0) return '5'; 
+  d6:	82 ff       	sbrs	r24, 2
+  d8:	17 c0       	rjmp	.+46     	; 0x108 <main+0x6a>
+	if ((x & 0b00000010) == 0) return '8';  
+  da:	81 ff       	sbrs	r24, 1
+  dc:	17 c0       	rjmp	.+46     	; 0x10c <main+0x6e>
+	if ((x & 0b00000001) == 0) return '0';  
+  de:	80 ff       	sbrs	r24, 0
+  e0:	17 c0       	rjmp	.+46     	; 0x110 <main+0x72>
+
+	PORTA = 0b11101111;   // column 3
+  e2:	eb ba       	out	0x1b, r14	; 27
+	asm volatile("nop");
+  e4:	00 00       	nop
+	x = PINA;
+  e6:	89 b3       	in	r24, 0x19	; 25
+	if ((x & 0b00001000) == 0) return '3';  
+  e8:	83 ff       	sbrs	r24, 3
+  ea:	14 c0       	rjmp	.+40     	; 0x114 <main+0x76>
+	if ((x & 0b00000100) == 0) return '6';  
+  ec:	82 ff       	sbrs	r24, 2
+  ee:	14 c0       	rjmp	.+40     	; 0x118 <main+0x7a>
+	if ((x & 0b00000010) == 0) return '9';  
+  f0:	81 ff       	sbrs	r24, 1
+  f2:	14 c0       	rjmp	.+40     	; 0x11c <main+0x7e>
+
+	return 0; 
+  f4:	8f 2d       	mov	r24, r15
+  f6:	13 c0       	rjmp	.+38     	; 0x11e <main+0x80>
+	PORTA = 0b11111111;   
+
+	PORTA = 0b10111111;   // column 1 
+	asm volatile("nop");
+	x = PINA;
+	if ((x & 0b00001000) == 0) return '1';  
+  f8:	81 e3       	ldi	r24, 0x31	; 49
+  fa:	11 c0       	rjmp	.+34     	; 0x11e <main+0x80>
+	if ((x & 0b00000100) == 0) return '4';  
+  fc:	84 e3       	ldi	r24, 0x34	; 52
+  fe:	0f c0       	rjmp	.+30     	; 0x11e <main+0x80>
+	if ((x & 0b00000010) == 0) return '7';  
+ 100:	87 e3       	ldi	r24, 0x37	; 55
+ 102:	0d c0       	rjmp	.+26     	; 0x11e <main+0x80>
+
+	PORTA = 0b11011111;   // column 2
+	asm volatile("nop");
+	x = PINA;
+	if ((x & 0b00001000) == 0) return '2';  
+ 104:	82 e3       	ldi	r24, 0x32	; 50
+ 106:	0b c0       	rjmp	.+22     	; 0x11e <main+0x80>
+	if ((x & 0b00000100) == 0) return '5'; 
+ 108:	85 e3       	ldi	r24, 0x35	; 53
+ 10a:	09 c0       	rjmp	.+18     	; 0x11e <main+0x80>
+	if ((x & 0b00000010) == 0) return '8';  
+ 10c:	88 e3       	ldi	r24, 0x38	; 56
+ 10e:	07 c0       	rjmp	.+14     	; 0x11e <main+0x80>
+	if ((x & 0b00000001) == 0) return '0';  
+ 110:	80 e3       	ldi	r24, 0x30	; 48
+ 112:	05 c0       	rjmp	.+10     	; 0x11e <main+0x80>
+
+	PORTA = 0b11101111;   // column 3
+	asm volatile("nop");
+	x = PINA;
+	if ((x & 0b00001000) == 0) return '3';  
+ 114:	83 e3       	ldi	r24, 0x33	; 51
+ 116:	03 c0       	rjmp	.+6      	; 0x11e <main+0x80>
+	if ((x & 0b00000100) == 0) return '6';  
+ 118:	86 e3       	ldi	r24, 0x36	; 54
+ 11a:	01 c0       	rjmp	.+2      	; 0x11e <main+0x80>
+	if ((x & 0b00000010) == 0) return '9';  
+ 11c:	89 e3       	ldi	r24, 0x39	; 57
+	
+	unsigned char k;
+
+    while (1) {
+        char k = read_keypad();   
+        display_7led(k);  
+ 11e:	90 e0       	ldi	r25, 0x00	; 0
+ 120:	89 df       	rcall	.-238    	; 0x34 <display_7led>
+    }
+ 122:	c9 cf       	rjmp	.-110    	; 0xb6 <main+0x18>
+
+00000124 <_exit>:
+ 124:	f8 94       	cli
+
+00000126 <__stop_program>:
+ 126:	ff cf       	rjmp	.-2      	; 0x126 <__stop_program>
