@@ -4,12 +4,8 @@
 volatile uint16_t overflow_count = 0;
 volatile uint8_t led_state = 0; // 0 = odd LEDs, 1 = even LEDs
 
-ISR(TIMER1_OVF_vect) {
-	overflow_count++;
-	// For 4-second delay with 8MHz clock and 256 prescaler:
-	// Timer1 overflow every: 65536 / (8000000/256) = 2.097 seconds
-	// We need ~4 seconds, so wait for 2 overflows
-	if (overflow_count >= 62) {
+void delay(int n) {
+	if (overflow_count >= 16*n) {
 		overflow_count = 0;
 		
 		if (led_state == 0) {
@@ -22,6 +18,12 @@ ISR(TIMER1_OVF_vect) {
 			led_state = 0;
 		}
 	}
+}
+
+ISR(TIMER1_OVF_vect) {
+	overflow_count++;
+	delay(4);
+	
 }
 
 int main(void) {
@@ -39,3 +41,4 @@ int main(void) {
 		// Main loop - everything happens in ISR
 	}
 }
+
